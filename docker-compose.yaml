@@ -1,0 +1,26 @@
+version: "3"
+networks:
+  dz2:
+    driver: bridge
+services:
+  app:
+    build: .
+    ports:
+      - "8081:80"
+    networks:
+      - dz2
+  adminer:
+    image: "adminer:latest"
+    ports:
+    - "8082:8080"
+    networks:
+      - dz2
+  psql:
+    image: "postgres:12.1"
+    restart: always
+    networks:
+      - dz2
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
